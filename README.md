@@ -1,11 +1,11 @@
 # DL_project
 
-#name : Junjae Lee
+name: Junjae Lee
 
-#Title: Anomaly Detection for Pneumonia X-ray Images using Autoencoders
+Title: Anomaly Detection for Pneumonia X-ray Images using Autoencoders
 
 
-#Summary:
+Summary:
 In this project, I will study anomaly detection in medical images using the PneumoniaMNIST dataset. PneumoniaMNIST contains chest X-ray images labeled as normal or pneumonia. Although this dataset is usually used for binary classification, I will reformulate it as an anomaly detection problem.
 
 The main idea is to train an autoencoder using only normal X-ray images. Since the model only learns normal image patterns, it should reconstruct normal images better than pneumonia images. During testing, both normal and pneumonia images will be given to the model. If an image has a high reconstruction error, it will be considered an anomaly.
