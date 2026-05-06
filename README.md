@@ -1,6 +1,6 @@
 # DL_project
 
-name: Junjae Lee
+student_name: Junjae Lee
 
 Title: Anomaly Detection for Pneumonia X-ray Images using Autoencoders
 
