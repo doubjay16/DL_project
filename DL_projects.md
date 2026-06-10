@@ -118,9 +118,7 @@ The Binary CNN confusion matrix is shown below.
 | Encoder Feature + Mahalanobis Distance | Normal only        | Anomaly detection         | 0.569 |    0.404 |
 | Binary CNN Classifier                  | Normal + Pneumonia | Supervised classification | 0.933 |    0.838 |
 
-The final comparison table is also shown below.
-
-![Final comparison table](images/final_comparison.png)
+The results show that the Binary CNN classifier achieved the highest AUROC and accuracy. In contrast, the normal-only anomaly detection methods showed limited performance. This suggests that supervised classification is more suitable for PneumoniaMNIST when both normal and pneumonia labels are available.
 
 
 ---
