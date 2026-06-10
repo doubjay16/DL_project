@@ -57,15 +57,23 @@ The purpose of adding this model was to check whether the low performance of ano
 
 # 4. Experiments
 
+I implemented the experiments using Python, PyTorch, and the MedMNIST package on Google Colab. The input images from PneumoniaMNIST were 28×28 grayscale chest X-ray images. The label 0 indicates a normal image, and the label 1 indicates a pneumonia image.
+
 I compared three main approaches:
 
 1. Autoencoder reconstruction error
 2. Encoder feature with Mahalanobis distance
 3. Binary CNN classifier
 
-The autoencoder and Mahalanobis methods were trained only with normal X-ray images. For these methods, pneumonia images were used only during testing as anomaly samples. The Binary CNN classifier was trained with both normal and pneumonia images.
+For the anomaly detection methods, only normal X-ray images were used during training. Pneumonia images were not used for training and were used only during testing as anomalous samples. This setting was designed to simulate a normal-only anomaly detection problem.
 
-The main evaluation metrics were AUROC, accuracy, and confusion matrix. AUROC was especially important because it measures how well each method separates normal and pneumonia images across different thresholds.
+The convolutional autoencoder was trained with mean squared error loss because its objective was to reconstruct the input image. The model used convolution and pooling layers in the encoder, and transposed convolution layers in the decoder. The anomaly score for this method was the reconstruction error between the original image and the reconstructed image.
+
+For the feature-based anomaly detection method, I used the trained autoencoder encoder to extract feature vectors from X-ray images. Then, I calculated the Mahalanobis distance between each test feature vector and the distribution of normal training features. The threshold for anomaly detection was set using the 95th percentile of validation normal scores.
+
+Finally, I trained a Binary CNN classifier as a supervised benchmark. Unlike the anomaly detection methods, this model used both normal and pneumonia images during training. The CNN used convolutional layers to extract visual patterns and fully connected layers to classify the image as normal or pneumonia.
+
+The main evaluation metrics were AUROC, accuracy, and confusion matrix. AUROC was especially important because it measures how well each method separates normal and pneumonia images across different thresholds. Accuracy and confusion matrices were also used to analyze the final classification behavior of each method.
 
 ---
 
@@ -80,6 +88,20 @@ Interestingly, when negative reconstruction error was used as a diagnostic score
 The Mahalanobis distance method showed AUROC 0.569 and accuracy 0.404. This was slightly better than random but still weak. The confusion matrix showed that many pneumonia images were still predicted as normal. This suggests that the encoder features learned by a simple autoencoder were not discriminative enough for pneumonia anomaly detection. The encoder was trained to reconstruct normal images, not to classify pneumonia, so its feature space did not clearly separate normal and pneumonia images.
 
 The Binary CNN classifier achieved the best result, with AUROC 0.933 and accuracy 0.838. It correctly detected most pneumonia images. This result shows that when normal and pneumonia labels are available, supervised classification is much more effective for PneumoniaMNIST. The CNN directly learned pneumonia-related visual features, while the anomaly detection models only learned normal patterns.
+
+The confusion matrices provide a more detailed interpretation of these results. In the autoencoder reconstruction error method, most pneumonia images were incorrectly classified as normal. This happened because pneumonia images had lower reconstruction errors than normal images, so they did not exceed the anomaly threshold.
+
+For the Mahalanobis distance method, the confusion matrix also showed weak pneumonia detection. Out of 390 pneumonia images, only 56 were detected as pneumonia, while 334 were incorrectly predicted as normal. This means that the feature-based anomaly detection method had low recall for pneumonia cases. Although Mahalanobis distance was more conceptually appropriate than raw reconstruction error, the encoder features were still not discriminative enough to separate pneumonia from normal images.
+
+The Binary CNN classifier showed a much stronger result. Its confusion matrix was:
+
+| Actual / Predicted | Normal | Pneumonia |
+| ------------------ | -----: | --------: |
+| Normal             |    138 |        96 |
+| Pneumonia          |      5 |       385 |
+
+This means that the Binary CNN correctly detected 385 out of 390 pneumonia images. Therefore, the model had very high pneumonia recall. However, it also misclassified 96 normal images as pneumonia, which means that the model had a relatively high false positive rate. In a medical screening context, this behavior may still be meaningful because missing pneumonia cases can be more dangerous than falsely warning about normal cases. However, the false positive rate should be improved in future work.
+
 
 ---
 
