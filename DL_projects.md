@@ -93,8 +93,7 @@ The confusion matrices provide a more detailed interpretation of these results. 
 
 For the Mahalanobis distance method, the confusion matrix also showed weak pneumonia detection. Out of 390 pneumonia images, only 56 were detected as pneumonia, while 334 were incorrectly predicted as normal. This means that the feature-based anomaly detection method had low recall for pneumonia cases. Although Mahalanobis distance was more conceptually appropriate than raw reconstruction error, the encoder features were still not discriminative enough to separate pneumonia from normal images.
 
-The Binary CNN classifier showed a much stronger result. Its confusion matrix was:
-
+The Binary CNN classifier showed the strongest performance. Its confusion matrix is summarized below.
 | Actual / Predicted | Normal | Pneumonia |
 | ------------------ | -----: | --------: |
 | Normal             |    138 |        96 |
