@@ -1,5 +1,6 @@
-#  Junjae Lee
+# Student Name
 
+Junjae Lee
 
 ---
 
