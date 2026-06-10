@@ -102,6 +102,9 @@ The Binary CNN classifier showed a much stronger result. Its confusion matrix wa
 
 This means that the Binary CNN correctly detected 385 out of 390 pneumonia images. Therefore, the model had very high pneumonia recall. However, it also misclassified 96 normal images as pneumonia, which means that the model had a relatively high false positive rate. In a medical screening context, this behavior may still be meaningful because missing pneumonia cases can be more dangerous than falsely warning about normal cases. However, the false positive rate should be improved in future work.
 
+The Binary CNN confusion matrix is shown below.
+
+![Binary CNN confusion matrix](images/confusion_Matrix.png)
 
 ---
 
@@ -114,6 +117,11 @@ This means that the Binary CNN correctly detected 385 out of 390 pneumonia image
 | AE Negative Reconstruction Error       | Normal only        | Diagnostic analysis       | 0.899 |        - |
 | Encoder Feature + Mahalanobis Distance | Normal only        | Anomaly detection         | 0.569 |    0.404 |
 | Binary CNN Classifier                  | Normal + Pneumonia | Supervised classification | 0.933 |    0.838 |
+
+The final comparison table is also shown below.
+
+![Final comparison table](images/final_comparison.png)
+
 
 ---
 
